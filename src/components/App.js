@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import GlobalStyled from "./GlobalStyled";
 
-import TelaLogin from "./login/TelaLogin";
-import TelaCadastro from "./cadastro/TelaCadastro"
+import TelaLogin from "./login-cadastro/TelaLogin";
+import TelaCadastro from "./login-cadastro/TelaCadastro"
 import TelaHabitos from "./habitos/TelaHabitos";
 import TelaHoje from "./hoje/TelaHoje";
 import TelaHistorico from "./historico/TelaHistorico";
@@ -12,7 +13,9 @@ export default function App() {
     
     return (
         <>
+        
         <BrowserRouter>
+        <GlobalStyled />
             <Topo />
                 <Routes>
                     <Route path="/" element={<TelaLogin />} />
@@ -22,6 +25,7 @@ export default function App() {
                     <Route path="/historico" element={<TelaHistorico />} />
                 </Routes>
         </BrowserRouter>
+        
         </>
     )
 }   
