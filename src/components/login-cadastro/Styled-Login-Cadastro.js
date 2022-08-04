@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 export const Corpo = styled.div`
     width: 100%;
     display: flex;
@@ -17,6 +18,7 @@ export const Login = styled.form`
     flex-direction: column;
     width: 85%;
     gap: 6px;
+    
 
     input, button {
         width: 100%;
@@ -24,7 +26,9 @@ export const Login = styled.form`
         padding: 15px;
         border: 1px solid #D5D5D5;
         border-radius: 3px;
+        background: ${props => props.inputColor};
     }
+
     input::placeholder {
         color: #DBDBDB;
         font-size: 20px;
@@ -32,19 +36,21 @@ export const Login = styled.form`
     textarea:focus, input:focus {
         box-shadow: 0 0 0 0;
         outline: 0;
-        }
-
+    }
+    
     button {
         width: 100%;
         height: 45px;
         background-color: #52B6FF;
         color: #FFFFFF;
         font-size: 20px;
-        text-align: center;
+        display: flex;
+        align-items: center;
         justify-content: center;
         border: none;
         font-weight: bold;
-}
+        background: ${props => props.buttonColor};
+    }
 `
 
 export const Cadastro = styled.h1`
