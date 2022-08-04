@@ -1,12 +1,12 @@
-
 import styled from "styled-components"
 
 export default function Topo () {
+    const user = JSON.parse(localStorage.getItem("user"));
 
     return (
         <Fundo>
             <h1>TrackIt</h1>
-            <img src=""></img>
+            <img src={user.image}></img>
         </Fundo>
     )
 }
@@ -28,5 +28,12 @@ const Fundo = styled.div`
         font-family: 'Playball', cursive;
         color: #FFFFFF;
         font-size: 40px;
+    }
+
+    img {
+        width: 50px;
+        height: 50px;
+        border-radius: 100px;
+        border: 1px solid #D5D5D5;
     }
 `
