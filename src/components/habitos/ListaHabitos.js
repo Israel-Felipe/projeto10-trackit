@@ -47,3 +47,9 @@ const ListaBody = styled.div`
     margin-bottom: 100px;
     
 `
+
+{/* <img src={lixo} onClick={() => {
+                if (window.confirm(`Deseja realmente apagar o hábito: ${infosHabito.name}?`)) {
+                    deleteHabito();
+                  }
+            }}></img> */}

@@ -5,50 +5,53 @@ import axios from "axios";
 
 export default function Habito ({infosHabito, setListaDeHabitos, listaDeHabitos}) {
     const week = ["D", "S", "T", "Q", "Q", "S", "S"];
-
     const selecionados = infosHabito.days;
 
     function deleteHabito(infosHabito) {
-
-    const user = JSON.parse(localStorage.getItem("user"));
-    const authAPI = {
-        headers: {
-        Authorization: `Bearer ${user.token}`
+        const user = JSON.parse(localStorage.getItem("user"));
+        const authAPI = {
+            headers: {
+            Authorization: `Bearer ${user.token}`
+            }
         }
-    }
 
         const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${infosHabito.id}`, authAPI);
-        promise.then((res) => {
+        promise.then(() => {
             setListaDeHabitos([...listaDeHabitos], "teste")
         });
         
     }
-        return (
-            <BoxHabito>
-                <h1>{infosHabito.name}</h1>
-                <Week>
-                    {week.map((day, index) => {
-                    return (
-                        <BoxDay key={index} 
-                        selectedColor={
-                            selecionados.includes(index)
-                              ? "#ffffff"
-                              : "#CFCFCF"
-                          }
-                          selectedBG={
-                            selecionados.includes(index)
-                              ? "#CFCFCF"
-                              : "#ffffff"
-                          }>
-                            <h1>{day}</h1>
-                        </BoxDay>
 
-                    )
-                    })}
-                </Week>
-                <img src={lixo} onClick={() => deleteHabito(infosHabito)}></img>
-            </BoxHabito>
-        )
+    return (
+        <BoxHabito>
+            <h1>{infosHabito.name}</h1>
+            <Week>
+                {week.map((day, index) => {
+                return (
+                    <BoxDay key={index} 
+                    selectedColor={
+                        selecionados.includes(index)
+                            ? "#ffffff"
+                            : "#CFCFCF"
+                        }
+                        selectedBG={
+                        selecionados.includes(index)
+                            ? "#CFCFCF"
+                            : "#ffffff"
+                        }>
+                        <h1>{day}</h1>
+                    </BoxDay>
+
+                )
+                })}
+            </Week>
+            <img src={lixo} onClick={() => {
+                if (window.confirm(`Deseja realmente apagar o hábito: ${infosHabito.name}?`)) {
+                    deleteHabito(infosHabito);
+                  }
+            }}></img>
+        </BoxHabito>
+    )
 }
     
 
