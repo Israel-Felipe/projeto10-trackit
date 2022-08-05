@@ -1,13 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
+import lixo from "../../images/lixo.svg"
+import axios from "axios";
 
-
-
-export default function Habito ({infosHabito}) {
+export default function Habito ({infosHabito, setListaDeHabitos, listaDeHabitos}) {
     const week = ["D", "S", "T", "Q", "Q", "S", "S"];
 
     const selecionados = infosHabito.days;
 
+    function deleteHabito(infosHabito) {
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    const authAPI = {
+        headers: {
+        Authorization: `Bearer ${user.token}`
+        }
+    }
+
+        const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${infosHabito.id}`, authAPI);
+        promise.then((res) => {
+            setListaDeHabitos([...listaDeHabitos], "teste")
+        });
+        
+    }
         return (
             <BoxHabito>
                 <h1>{infosHabito.name}</h1>
@@ -31,6 +46,7 @@ export default function Habito ({infosHabito}) {
                     )
                     })}
                 </Week>
+                <img src={lixo} onClick={() => deleteHabito(infosHabito)}></img>
             </BoxHabito>
         )
 }
@@ -44,6 +60,16 @@ const BoxHabito = styled.div`
     padding: 15px;
     display: flex;
     flex-direction: column;
+    position: relative;
+
+    img {
+        width: 13px;
+        height: 15px;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        cursor: pointer;
+    }
 `
 
 const Week = styled.div`

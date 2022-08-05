@@ -17,18 +17,18 @@ export default function ListaHabitos() {
     useEffect (() => {
     const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", authAPI);
     promise.then((res) => {  
-        setListaDeHabitos(res.data);
+        setListaDeHabitos(res.data.reverse());
     });
     promise.catch(() => {
         alert("Não deu certo, infelizmente");
     });
-    },[]);
+    },[listaDeHabitos]);
 
     return (
         <ListaBody>
             {listaDeHabitos.length === 0 
             ? <h1>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h1> 
-            : listaDeHabitos.map((habito, index) => <Habito key={index} infosHabito={habito}/>)}
+            : listaDeHabitos.map((habito, index) => <Habito key={index} infosHabito={habito} setListaDeHabitos={setListaDeHabitos} listaDeHabitos={listaDeHabitos}/>)}
         </ListaBody>
     )
 }
@@ -43,7 +43,7 @@ const ListaBody = styled.div`
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    scrollbar-width: none;
     gap: 10px;
     margin-bottom: 100px;
+    
 `

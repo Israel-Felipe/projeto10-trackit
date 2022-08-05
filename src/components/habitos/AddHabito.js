@@ -100,7 +100,10 @@ const Buttons = styled.div`
     justify-content: right;
     align-items: center;
     color: #52B6FF;
-
+    
+    h1 {
+        cursor: pointer;
+    }
     button {
         width: 85px;
         height: 35px;
@@ -112,5 +115,6 @@ const Buttons = styled.div`
         border: none;
         background: ${props => props.buttonColor};
         border-radius: 3px;
+        cursor: pointer;
     }
 `   
