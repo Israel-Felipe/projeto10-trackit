@@ -4,11 +4,10 @@ import { useState } from "react";
 import Topo from "../topoEmenu/Topo";
 import Menu from "../topoEmenu/Menu";
 import AddHabito from "./AddHabito";
-
+import ListaHabitos from "./ListaHabitos"
 
 
 export default function TelaHoje() {
-    
 
     const [habito, setHabito] = useState("");
     const [daysSelected, setDaysSelected] = useState([]);
@@ -24,11 +23,8 @@ export default function TelaHoje() {
             
             <AddHabito daysSelected={daysSelected} setDaysSelected={setDaysSelected} habito={habito} setHabito={setHabito} displayAddHab={displayAddHab} setDisplayAddHab={setDisplayAddHab}/>
 
-            <Habitos>
-                <h1>
-                    Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
-                </h1>
-            </Habitos>
+            <ListaHabitos />
+            
         <Menu />
         </Container>
     )
@@ -64,11 +60,4 @@ const Titulo = styled.div`
         justify-content: center;
         background-color: #52B6FF;
 }
-`
-
-const Habitos = styled.div`
-    width: 90%;
-    color: #666666;
-    font-size: 18px;
-    line-height: 22px;
 `

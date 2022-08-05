@@ -32,11 +32,11 @@ export default function AddHabito ({daysSelected, setDaysSelected, habito, setHa
 
         promise.then((res) => {  
             const resHabito = res.data;
-            setIsDisabled(false); setInputColor("#FFFFFF"); setButtonColor("#52B6FF"); setCancelar("Cancelar"); setBotao("Salvar");
+            window.location.reload();
         });
             
         promise.catch(() => {
-            console.log("deu errado")
+            alert("Algo deu errado...")
             setIsDisabled(false); setInputColor("#FFFFFF"); setButtonColor("#52B6FF"); setCancelar("Cancelar"); setBotao("Salvar");
         });
     }
