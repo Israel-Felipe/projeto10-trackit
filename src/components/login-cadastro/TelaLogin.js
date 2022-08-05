@@ -21,7 +21,7 @@ export default function TelaLogin () {
         e.preventDefault();
         setBotao(<ThreeDots color="#FFFFFF"/>);
         setIsDisabled(true);
-        setInputColor("#E5E5E5"); setButtonColor("#86CDFF");
+        setInputColor("#F2F2F2"); setButtonColor("#86CDFF");
 
         const loginAPI = {
             email,

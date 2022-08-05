@@ -27,11 +27,12 @@ export const Login = styled.form`
         border: 1px solid #D5D5D5;
         border-radius: 3px;
         background: ${props => props.inputColor};
+        color: #666666;
+        font-size: 20px;
     }
 
     input::placeholder {
         color: #DBDBDB;
-        font-size: 20px;
     }
     textarea:focus, input:focus {
         box-shadow: 0 0 0 0;
