@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import { ThreeDots } from  'react-loader-spinner'
 
+import { cadastrar } from "../../services/services";
+import { ThreeDots } from  'react-loader-spinner'
 import logo from "../../images/logo.svg";
 import { Corpo, Login, Cadastro } from "./Styled-Login-Cadastro"
 
@@ -31,14 +31,11 @@ export default function TelaCadastro () {
                 password: senha
             }
             
-            const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", cadastroAPI);
-            
-            promise.then((res) => {
-                console.log(cadastroAPI)
+            cadastrar(cadastroAPI)           
+            .then(() => {
                 navigate('/');
-            });
-                
-            promise.catch(() => {
+            })
+            .catch(() => {
                 alert("Insira corretamente o endereço da imagem");
                 setBotao("Cadastrar");
                 setIsDisabled(false);

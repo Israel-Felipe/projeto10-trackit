@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import { logar } from "../../services/services";
 import { ThreeDots } from  'react-loader-spinner'
 
 import logo from "../../images/logo.svg";
@@ -17,6 +17,14 @@ export default function TelaLogin () {
     const [inputColor, setInputColor] = useState("#FFFFFF");
     const [buttonColor, setButtonColor] = useState("#52B6FF");
 
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    console.log(user)
+
+    if(user !== null) {
+        navigate('/hoje');
+    }
+
     function fazerLogin (e) {
         e.preventDefault();
         setBotao(<ThreeDots color="#FFFFFF"/>);
@@ -28,21 +36,19 @@ export default function TelaLogin () {
             password,
         }
     
-        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", loginAPI);
-            
-            promise.then((res) => {  
-                const usuario = res.data;
-                const usuarioSerial = JSON.stringify(usuario);
-                localStorage.setItem("user", usuarioSerial);
-                navigate('/hoje');
-            });
-                
-            promise.catch(() => {
-                alert("Login ou senha incorretos");
-                setBotao("Entrar");
-                setIsDisabled(false);
-                setInputColor("#FFFFFF"); setButtonColor("#52B6FF");
-            });
+        logar (loginAPI)
+        .then((res) => {  
+            const usuario = res.data;
+            const usuarioSerial = JSON.stringify(usuario);
+            localStorage.setItem("user", usuarioSerial);
+            navigate('/hoje');
+        })
+        .catch(() => {
+            alert("Login ou senha incorretos");
+            setBotao("Entrar");
+            setIsDisabled(false);
+            setInputColor("#FFFFFF"); setButtonColor("#52B6FF");
+        });
 }
 
     return (

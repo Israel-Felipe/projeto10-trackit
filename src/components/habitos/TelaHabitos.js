@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import { useState } from "react";
-
-import Topo from "../topoEmenu/Topo";
-import Menu from "../topoEmenu/Menu";
 import AddHabito from "./AddHabito";
 import ListaHabitos from "./ListaHabitos"
 
@@ -12,20 +9,18 @@ export default function TelaHoje() {
     const [habito, setHabito] = useState("");
     const [daysSelected, setDaysSelected] = useState([]);
     const [displayAddHab, setDisplayAddHab] = useState("none");
+    const [reload, setReload] = useState(true);
 
     return (
         <Container>
-        <Topo />
             <Titulo>
                 <h1>Meus hábitos</h1>
                 <div onClick={() => setDisplayAddHab("initial")}>+</div>
             </Titulo>
             
-            <AddHabito daysSelected={daysSelected} setDaysSelected={setDaysSelected} habito={habito} setHabito={setHabito} displayAddHab={displayAddHab} setDisplayAddHab={setDisplayAddHab}/>
+            <AddHabito daysSelected={daysSelected} setDaysSelected={setDaysSelected} habito={habito} setHabito={setHabito} displayAddHab={displayAddHab} setDisplayAddHab={setDisplayAddHab} setReload={setReload} reload={reload}/>
 
-            <ListaHabitos />
-            
-        <Menu />
+            <ListaHabitos reload={reload}/>
         </Container>
     )
 }

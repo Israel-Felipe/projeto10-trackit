@@ -1,12 +1,11 @@
 import styled from "styled-components"
 
-export default function Topo () {
-    const user = JSON.parse(localStorage.getItem("user"));
+export default function Topo ({image}) {
 
     return (
         <Fundo>
             <h1>TrackIt</h1>
-            <img src={user.image}></img>
+            <img src={image}></img>
         </Fundo>
     )
 }

@@ -51,6 +51,7 @@ export const Login = styled.form`
         border: none;
         font-weight: bold;
         background: ${props => props.buttonColor};
+        cursor: pointer;
     }
 `
 
@@ -59,4 +60,5 @@ export const Cadastro = styled.h1`
     font-size: 14px;
     text-decoration-line: underline;
     margin: 25px;
+    cursor: pointer;
 `

@@ -1,26 +1,13 @@
-import { useState, useEffect } from "react";
 import styled from "styled-components";
-import lixo from "../../images/lixo.svg"
-import axios from "axios";
+import { useContext } from "react";
+import UserContext from "../../context/UserContext";
+import { deleteHabito } from "../../services/services";
+import lixo from "../../images/lixo.svg";
 
-export default function Habito ({infosHabito, setListaDeHabitos, listaDeHabitos}) {
+export default function Habito ({infosHabito}) {
     const week = ["D", "S", "T", "Q", "Q", "S", "S"];
     const selecionados = infosHabito.days;
-
-    function deleteHabito(infosHabito) {
-        const user = JSON.parse(localStorage.getItem("user"));
-        const authAPI = {
-            headers: {
-            Authorization: `Bearer ${user.token}`
-            }
-        }
-
-        const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${infosHabito.id}`, authAPI);
-        promise.then(() => {
-            setListaDeHabitos([...listaDeHabitos], "teste")
-        });
-        
-    }
+    const { setAtualizaMenu, atualizaMenu } = useContext(UserContext);
 
     return (
         <BoxHabito>
@@ -47,7 +34,7 @@ export default function Habito ({infosHabito, setListaDeHabitos, listaDeHabitos}
             </Week>
             <img src={lixo} onClick={() => {
                 if (window.confirm(`Deseja realmente apagar o hábito: ${infosHabito.name}?`)) {
-                    deleteHabito(infosHabito);
+                    deleteHabito(infosHabito.id); setAtualizaMenu(!atualizaMenu)
                   }
             }}></img>
         </BoxHabito>

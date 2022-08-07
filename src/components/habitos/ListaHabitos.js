@@ -1,34 +1,27 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import axios from "axios";
 
+import { listaHabitos } from "../../services/services";
 import Habito from "./Habito";
 
-export default function ListaHabitos() {
-    const [listaDeHabitos, setListaDeHabitos] = useState([]);
-
-    const user = JSON.parse(localStorage.getItem("user"));
-    const authAPI = {
-        headers: {
-        Authorization: `Bearer ${user.token}`
-        }
-    }
+export default function ListaHabitos(reload) {
+    const [listaDeHabitosArray, setListaDeHabitosArray] = useState([]);
 
     useEffect (() => {
-    const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", authAPI);
-    promise.then((res) => {  
-        setListaDeHabitos(res.data.reverse());
-    });
-    promise.catch(() => {
+    listaHabitos()
+    .then((res) => {  
+        setListaDeHabitosArray(res.data.reverse());
+    })
+    .catch(() => {
         alert("Não deu certo, infelizmente");
     });
-    },[listaDeHabitos]);
+    }, [listaDeHabitosArray, reload]);
 
     return (
         <ListaBody>
-            {listaDeHabitos.length === 0 
+            {listaDeHabitosArray.length === 0 
             ? <h1>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h1> 
-            : listaDeHabitos.map((habito, index) => <Habito key={index} infosHabito={habito} setListaDeHabitos={setListaDeHabitos} listaDeHabitos={listaDeHabitos}/>)}
+            : listaDeHabitosArray.map((habito, index) => <Habito key={index} infosHabito={habito} setListaDeHabitosArray={setListaDeHabitosArray} listaDeHabitosArray={listaDeHabitosArray}/>)}
         </ListaBody>
     )
 }
@@ -45,11 +38,4 @@ const ListaBody = styled.div`
     overflow-y: scroll;
     gap: 10px;
     margin-bottom: 100px;
-    
 `
-
-{/* <img src={lixo} onClick={() => {
-                if (window.confirm(`Deseja realmente apagar o hábito: ${infosHabito.name}?`)) {
-                    deleteHabito();
-                  }
-            }}></img> */}

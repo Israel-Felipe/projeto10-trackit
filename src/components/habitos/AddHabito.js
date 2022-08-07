@@ -1,41 +1,41 @@
 import styled from "styled-components";
 import { useState } from "react";
-import axios from "axios";
 import Day from "./Day";
 import { ThreeDots } from  'react-loader-spinner'
+import { useContext } from "react";
+import UserContext from "../../context/UserContext";
+import { postHabito } from "../../services/services";
 
-export default function AddHabito ({daysSelected, setDaysSelected, habito, setHabito, displayAddHab, setDisplayAddHab}) {
-    const user = JSON.parse(localStorage.getItem("user"));
+export default function AddHabito ({daysSelected, setDaysSelected, habito, setHabito, displayAddHab, setDisplayAddHab, setReload, reload}) {
+
     const week = ["D", "S", "T", "Q", "Q", "S", "S"];
     const [isDisabled, setIsDisabled] = useState(false);
     const [inputColor, setInputColor] = useState("#FFFFFF");
     const [buttonColor, setButtonColor] = useState("#52B6FF");
     const [botao, setBotao] = useState("Salvar");
     const [cancelar, setCancelar] = useState("Cancelar");
+    const { setAtualizaMenu, atualizaMenu } = useContext(UserContext);
+    const[atualizaBGDay, setAtualizaBGday] = useState(false);
 
     function sendHabito() {
+        
         setIsDisabled(true);
         setBotao(<ThreeDots color="#FFFFFF" width={50} height={50}/>);
         setInputColor("#F2F2F2"); setButtonColor("#86CDFF"); setCancelar("");
+        
 
-        const sendHabitoAPI = {
+        const postHabitoBody = {
             name: habito,
             days: daysSelected
         }
 
-        const authAPI = {
-                headers: {
-                Authorization: `Bearer ${user.token}`
-                }
-        }
-        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", sendHabitoAPI, authAPI);
-
-        promise.then((res) => {  
-            const resHabito = res.data;
-            window.location.reload();
-        });
-            
-        promise.catch(() => {
+        postHabito(postHabitoBody)
+        .then(() => {  
+            setReload(!reload); setAtualizaMenu(!atualizaMenu); setAtualizaBGday(!atualizaBGDay)
+            setIsDisabled(false); setInputColor("#FFFFFF"); setButtonColor("#52B6FF"); setCancelar("Cancelar"); setBotao("Salvar");
+            setHabito(""); setDaysSelected([]); setDisplayAddHab("none")
+        })             
+        .catch(() => {
             alert("Algo deu errado...")
             setIsDisabled(false); setInputColor("#FFFFFF"); setButtonColor("#52B6FF"); setCancelar("Cancelar"); setBotao("Salvar");
         });
@@ -45,7 +45,7 @@ export default function AddHabito ({daysSelected, setDaysSelected, habito, setHa
             <AddHabitoBody displayAddHab={displayAddHab} inputColor={inputColor}>
                 <input placeholder="nome do hábito" type="text" value={habito} onChange={e => setHabito(e.target.value)} required disabled={isDisabled} />
                 <Week>
-                    {week.map((day, index) => <Day key={index} idDay={index} day={day} daysSelected={daysSelected} setDaysSelected={setDaysSelected} isDisabled={isDisabled}/>)}
+                    {week.map((day, index) => <Day key={index} idDay={index} day={day} daysSelected={daysSelected} setDaysSelected={setDaysSelected} isDisabled={isDisabled} atualizaBGDay={atualizaBGDay}/>)}
                 </Week>
 
                 <Buttons buttonColor={buttonColor}>

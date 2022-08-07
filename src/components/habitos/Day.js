@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
-export default function Day({day, idDay, daysSelected, setDaysSelected, isDisabled}) {
+export default function Day({day, idDay, daysSelected, setDaysSelected, isDisabled, atualizaBGDay}) {
         
     const [isSelected, setIsSelected] = useState(false);
     const [selectedColor, setSelectedColor] = useState("");
     const [selectedBG, setSelectedBG] = useState("");
 
     useEffect (() => {
-
         if (isSelected === true) {
             setDaysSelected([...daysSelected, idDay]);
             setSelectedColor("#FFFFFF");
@@ -20,6 +19,11 @@ export default function Day({day, idDay, daysSelected, setDaysSelected, isDisabl
         }
     }, [isSelected]);
 
+    useEffect (() => {
+        setSelectedColor("#CFCFCF");
+        setSelectedBG("#FFFFFF");
+    },[atualizaBGDay]);
+    
     return (
         <BoxDay disabled={isDisabled} selectedColor={selectedColor} selectedBG={selectedBG} onClick={() => 
             {isSelected ? setIsSelected(false) : setIsSelected(true)}}>
