@@ -1,11 +1,17 @@
 import styled from "styled-components"
-
+import logoff from "../../images/logoff.svg"
 export default function Topo ({image}) {
 
     return (
         <Fundo>
             <h1>TrackIt</h1>
-            <img src={image}></img>
+            <div>
+            
+                <div onClick={() => {localStorage.clear(); window.location.reload()}}>
+                    <img src={logoff} alt="logoff" width={60} height={60}></img>
+                </div>
+                <img src={image} width={50} height={50}></img>
+            </div>
         </Fundo>
     )
 }
@@ -30,9 +36,10 @@ const Fundo = styled.div`
     }
 
     img {
-        width: 50px;
-        height: 50px;
         border-radius: 100px;
-        border: 1px solid #D5D5D5;
+    }
+    div {
+        display: flex;
+        align-items: center;
     }
 `

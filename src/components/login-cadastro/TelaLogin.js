@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { logar } from "../../services/services";
 import { ThreeDots } from  'react-loader-spinner'
@@ -19,11 +19,13 @@ export default function TelaLogin () {
 
     const user = JSON.parse(localStorage.getItem("user"));
 
-    console.log(user)
 
-    if(user !== null) {
+    useEffect(() => {
+        if(user !== null) {
         navigate('/hoje');
     }
+    }, [])
+    
 
     function fazerLogin (e) {
         e.preventDefault();

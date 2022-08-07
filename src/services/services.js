@@ -11,7 +11,6 @@ function createHeaders() {
     };
     return authAPI;
 }
-
 function cadastrar (cadastroAPI) {
     const promise = axios.post(`${BASE_URL}/auth/sign-up`, cadastroAPI);
     return promise;
